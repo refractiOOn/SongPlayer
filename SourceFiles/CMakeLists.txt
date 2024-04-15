@@ -4,21 +4,45 @@ set(EXEC_NAME app${PROJECT_NAME})
 
 set(CXX_SOURCE_FILES
     main.cpp
+    PlayerController.hpp PlayerController.cpp
+    AudioInfo.hpp AudioInfo.cpp
 )
 set(QML_SOURCE_FILES
     Main.qml
+    ImageButton.qml
+    AudioInfoBox.qml
+)
+set(RESOURCE_FILES
+    Assets/Audio/air_on_the_g_string.mp3
+    Assets/Audio/eine_kleine_nachtmusik.mp3
+    Assets/Audio/symphony_no_5.mp3
+
+    Assets/Icons/app_icon.ico
+    Assets/Icons/next_icon.png
+    Assets/Icons/pause_icon.png
+    Assets/Icons/play_icon.png
+    Assets/Icons/previous_icon.png
+
+    Assets/Images/song_1.jpg
+    Assets/Images/song_2.jpg
+    Assets/Images/song_3.jpg
+
+    Assets/Videos/video_1.avi
 )
 
-qt_add_executable(${EXEC_NAME} ${CXX_SOURCE_FILES})
+qt_add_executable(${EXEC_NAME})
 qt_add_qml_module(${EXEC_NAME}
     URI ${PROJECT_NAME}
     VERSION ${PROJECT_VERSION}
+    SOURCES ${CXX_SOURCE_FILES}
     QML_FILES ${QML_SOURCE_FILES}
+    RESOURCES ${RESOURCE_FILES}
 )
 
 target_link_libraries(${EXEC_NAME} PRIVATE
     Qt6::Core
     Qt6::Quick
+    Qt6::Multimedia
 )
 
 set_target_properties(${EXEC_NAME} PROPERTIES

@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Out
+[Bb]uild
+
+# Qt
+CMakeLists.txt.user

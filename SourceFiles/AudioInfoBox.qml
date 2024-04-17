@@ -6,10 +6,7 @@ import SongPlayer
 Item {
     id: _root
 
-    readonly property AudioInfo infoProvider: AudioInfo {}
-
-
-    visible: PlayerController.currentSongIndex === infoProvider.songIndex
+    visible: PlayerController.currentSong
 
     Image {
         id: _albumImage
@@ -21,7 +18,7 @@ Item {
         width: 150
         height: 150
 
-        source: infoProvider.imageSource
+        source: PlayerController.currentSong?.imageSource ?? ''
     }
 
     Video {
@@ -37,7 +34,7 @@ Item {
         loops: MediaPlayer.Infinite
         volume: 0
 
-        source: infoProvider.videoSource
+        source: PlayerController.currentSong?.videoSource ?? ''
     }
 
     Text {
@@ -52,7 +49,7 @@ Item {
 
         color: 'white'
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        text: infoProvider.title
+        text: PlayerController.currentSong?.title ?? ''
 
         font {
             pixelSize: 20
@@ -72,7 +69,7 @@ Item {
 
         color: 'gray'
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        text: infoProvider.authorName
+        text: PlayerController.currentSong?.authorName ?? ''
 
         font.pixelSize: 16
     }
@@ -80,16 +77,9 @@ Item {
     onVisibleChanged: {
         if (visible) {
             _albumVideo.play()
-            PlayerController.changeAudioSource(infoProvider.audioSource)
         } else {
             _albumVideo.seek(0)
             _albumVideo.stop()
-        }
-    }
-
-    Component.onCompleted: {
-        if (PlayerController.currentSongIndex === infoProvider.songIndex) {
-            PlayerController.changeAudioSource(infoProvider.audioSource)
         }
     }
 }

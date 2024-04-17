@@ -11,17 +11,22 @@ set(QML_SOURCE_FILES
     Main.qml
     ImageButton.qml
     AudioInfoBox.qml
+    PlaylistPanel.qml
 )
 set(RESOURCE_FILES
     Assets/Audio/air_on_the_g_string.mp3
     Assets/Audio/eine_kleine_nachtmusik.mp3
     Assets/Audio/symphony_no_5.mp3
+    Assets/Audio/reprezentuje_biede.mp3
 
     Assets/Icons/app_icon.ico
     Assets/Icons/next_icon.png
     Assets/Icons/pause_icon.png
     Assets/Icons/play_icon.png
     Assets/Icons/previous_icon.png
+    Assets/Icons/menu_icon.png
+    Assets/Icons/add_icon.png
+    Assets/Icons/trash_icon.png
 
     Assets/Images/song_1.jpg
     Assets/Images/song_2.jpg
@@ -36,7 +41,11 @@ qt_add_qml_module(${EXEC_NAME}
     VERSION ${PROJECT_VERSION}
     SOURCES ${CXX_SOURCE_FILES}
     QML_FILES ${QML_SOURCE_FILES}
-    RESOURCES ${RESOURCE_FILES}
+    # RESOURCES ${RESOURCE_FILES}
+)
+qt_add_resources(${EXEC_NAME} "resources"
+    PREFIX "/"
+    FILES ${RESOURCE_FILES}
 )
 
 target_link_libraries(${EXEC_NAME} PRIVATE

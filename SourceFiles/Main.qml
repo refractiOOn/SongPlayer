@@ -21,6 +21,23 @@ Window {
         height: 50
 
         color: '#5f8575'
+
+        ImageButton {
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: 20
+            }
+
+            width: 32
+            height: 32
+
+            source: 'qrc:/Assets/Icons/menu_icon.png'
+
+            onClicked: {
+                _playlistPanel.hidden = !_playlistPanel.hidden
+            }
+        }
     }
 
     Rectangle {
@@ -36,60 +53,13 @@ Window {
         color: '#1e1e1e'
 
         AudioInfoBox {
-            id: _firstSong
+            id: _songInfo
 
             anchors {
                 verticalCenter: parent.verticalCenter
                 left: parent.left
                 right: parent.right
                 margins: 20
-            }
-
-            infoProvider {
-                songIndex: 0
-                title: 'Eine Kleine Nachtmusik'
-                authorName: 'Wolfgang Amadeus Mozart'
-                imageSource: Qt.resolvedUrl('Assets/Images/song_1.jpg')
-                audioSource: Qt.resolvedUrl('Assets/Audio/eine_kleine_nachtmusik.mp3')
-            }
-        }
-
-        AudioInfoBox {
-            id: _secondSong
-
-            anchors {
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-                right: parent.right
-                margins: 20
-            }
-
-            infoProvider {
-                songIndex: 1
-                title: 'Symphony No. 5'
-                authorName: 'Ludwig Van Beethoven'
-                imageSource: Qt.resolvedUrl('Assets/Images/song_2.jpg')
-                audioSource: Qt.resolvedUrl('Assets/Audio/symphony_no_5.mp3')
-            }
-        }
-
-        AudioInfoBox {
-            id: _thirdSong
-
-            anchors {
-                verticalCenter: parent.verticalCenter
-                left: parent.left
-                right: parent.right
-                margins: 20
-            }
-
-            infoProvider {
-                songIndex: 2
-                title: 'Air on the G String'
-                authorName: 'Johann Sebastian Bach'
-                imageSource: Qt.resolvedUrl('Assets/Images/song_3.jpg')
-                videoSource: Qt.resolvedUrl('Assets/Videos/video_1.avi')
-                audioSource: Qt.resolvedUrl('Assets/Audio/air_on_the_g_string.mp3')
             }
         }
     }
@@ -116,7 +86,7 @@ Window {
                 width: 64
                 height: 64
 
-                source: Qt.resolvedUrl('Assets/Icons/previous_icon.png')
+                source: 'qrc:/Assets/Icons/previous_icon.png'
 
                 onClicked: PlayerController.switchToPrevious()
             }
@@ -128,8 +98,8 @@ Window {
                 height: 64
 
                 source: PlayerController.playing ?
-                            Qt.resolvedUrl('Assets/Icons/pause_icon.png') :
-                            Qt.resolvedUrl('Assets/Icons/play_icon.png')
+                            'qrc:/Assets/Icons/pause_icon.png' :
+                            'qrc:/Assets/Icons/play_icon.png'
 
                 onClicked: PlayerController.playPause()
             }
@@ -140,10 +110,19 @@ Window {
                 width: 64
                 height: 64
 
-                source: Qt.resolvedUrl('Assets/Icons/next_icon.png')
+                source: 'qrc:/Assets/Icons/next_icon.png'
 
                 onClicked: PlayerController.switchToNext()
             }
         }
+    }
+
+    PlaylistPanel {
+        id: _playlistPanel
+
+        anchors.top: _topBar.bottom
+        x: hidden ? parent.width : parent.width - width
+
+        onXChanged: console.log(x)
     }
 }

@@ -122,7 +122,5 @@ Window {
 
         anchors.top: _topBar.bottom
         x: hidden ? parent.width : parent.width - width
-
-        onXChanged: console.log(x)
     }
 }

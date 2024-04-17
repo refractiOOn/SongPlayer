@@ -41,7 +41,6 @@ qt_add_qml_module(${EXEC_NAME}
     VERSION ${PROJECT_VERSION}
     SOURCES ${CXX_SOURCE_FILES}
     QML_FILES ${QML_SOURCE_FILES}
-    # RESOURCES ${RESOURCE_FILES}
 )
 qt_add_resources(${EXEC_NAME} "resources"
     PREFIX "/"

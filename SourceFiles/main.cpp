@@ -1,10 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QIcon>
 #include "PlayerController.hpp"
 
 int main(int argc, char **argv)
 {
-	QGuiApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon("qrc:/Assets/Icons/app_icon.ico"));
 
     QQmlApplicationEngine engine;
 	QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app,

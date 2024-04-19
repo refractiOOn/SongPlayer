@@ -44,7 +44,7 @@ signals:
 
 private:
     QHash<int, QByteArray> m_roleNames;
-    QVector<AudioInfo *> m_audioList;
+    QVector<AudioInfo *> m_resultList;
     QNetworkAccessManager *m_accessManager;
     QNetworkReply *m_reply;
     bool m_isSearching;

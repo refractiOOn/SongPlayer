@@ -4,15 +4,15 @@ import QtQuick.Controls
 Rectangle {
     id: _root
 
-    signal accepted(string value)
-
     color: '#1e1e1e'
-    opacity: enabled ? 1 : 0.6
+    opacity: enabled ? 1.0 : 0.6
 
     border {
         width: 1
         color: _searchInput.activeFocus ? Qt.lighter('#5f8575') : 'transparent'
     }
+
+    signal accepted(string value)
 
     TextInput {
         id: _searchInput

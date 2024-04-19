@@ -22,15 +22,15 @@ AudioSearchModel::AudioSearchModel(QObject *parent):
 int AudioSearchModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid()) return 0;
-    return m_audioList.size();
+    return m_resultList.size();
 }
 
 QVariant AudioSearchModel::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
-    if (!index.isValid() || row < 0 || row >= m_audioList.size()) return {};
+    if (!index.isValid() || row < 0 || row >= m_resultList.size()) return {};
 
-    AudioInfo *info = m_audioList[row];
+    AudioInfo *info = m_resultList[row];
     switch (role)
     {
     case NameRole: return info->title();
@@ -75,8 +75,8 @@ void AudioSearchModel::parseData()
     {
         beginResetModel();
 
-        qDeleteAll(m_audioList);
-        m_audioList.clear();
+        qDeleteAll(m_resultList);
+        m_resultList.clear();
 
         const QByteArray data = m_reply->readAll();
         const QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
@@ -97,7 +97,7 @@ void AudioSearchModel::parseData()
                     audioInfo->setImageSource(entry["image"].toString());
                     audioInfo->setAudioSource(entry["audiodownload"].toString());
 
-                    m_audioList << audioInfo;
+                    m_resultList << audioInfo;
                 }
             }
         }

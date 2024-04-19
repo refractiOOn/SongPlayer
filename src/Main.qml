@@ -35,6 +35,7 @@ Window {
 
             height: 30
             visible: !_searchPanel.hidden
+            enabled: !AudioSearchModel.isSearching
 
             onAccepted: value => {
                 AudioSearchModel.searchSong(value)

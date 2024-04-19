@@ -114,7 +114,7 @@ Rectangle {
                        '')
     }
 
-    Behavior on x {
+    Behavior on y {
         PropertyAnimation {
             easing.type: Easing.InOutQuad
             duration: 200

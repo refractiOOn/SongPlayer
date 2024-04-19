@@ -1,5 +1,6 @@
 import QtQuick
 import com.refraction.PlayerController
+import com.refraction.AudioSearchModel
 
 Window {
 	id: _root
@@ -22,7 +23,28 @@ Window {
 
         color: '#5f8575'
 
+        SearchField {
+            id: _searchField
+
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+                right: _closeSearchButton.left
+                margins: 10
+            }
+
+            height: 30
+            visible: !_searchPanel.hidden
+
+            onAccepted: value => {
+                AudioSearchModel.searchSong(value)
+                _topBar.forceActiveFocus()
+            }
+        }
+
         ImageButton {
+            id: _playlistIcon
+
             anchors {
                 verticalCenter: parent.verticalCenter
                 right: parent.right
@@ -31,11 +53,32 @@ Window {
 
             width: 32
             height: 32
+            visible: _searchPanel.hidden
 
-            source: 'qrc:/Assets/Icons/menu_icon.png'
+            source: 'qrc:/assets/icons/menu_icon.png'
 
             onClicked: {
                 _playlistPanel.hidden = !_playlistPanel.hidden
+            }
+        }
+
+        ImageButton {
+            id: _closeSearchButton
+
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: 20
+            }
+
+            height: 32
+            width: 32
+            visible: !_searchPanel.hidden
+
+            source: 'qrc:/assets/icons/close_icon.png'
+
+            onClicked: {
+                _searchPanel.hidden = true
             }
         }
     }
@@ -86,7 +129,7 @@ Window {
                 width: 64
                 height: 64
 
-                source: 'qrc:/Assets/Icons/previous_icon.png'
+                source: 'qrc:/assets/icons/previous_icon.png'
 
                 onClicked: PlayerController.switchToPrevious()
             }
@@ -98,8 +141,8 @@ Window {
                 height: 64
 
                 source: PlayerController.playing ?
-                            'qrc:/Assets/Icons/pause_icon.png' :
-                            'qrc:/Assets/Icons/play_icon.png'
+                            'qrc:/assets/icons/pause_icon.png' :
+                            'qrc:/assets/icons/play_icon.png'
 
                 onClicked: PlayerController.playPause()
             }
@@ -110,7 +153,7 @@ Window {
                 width: 64
                 height: 64
 
-                source: 'qrc:/Assets/Icons/next_icon.png'
+                source: 'qrc:/assets/icons/next_icon.png'
 
                 onClicked: PlayerController.switchToNext()
             }
@@ -122,5 +165,21 @@ Window {
 
         anchors.top: _topBar.bottom
         x: hidden ? parent.width : parent.width - width
+
+        onSearchRequested: {
+            _searchPanel.hidden = false
+        }
+    }
+
+    SearchPanel {
+        id: _searchPanel
+
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+
+        height: _content.height + _bottomBar.height
+        y: hidden ? parent.height : _topBar.height
     }
 }

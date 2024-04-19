@@ -5,6 +5,7 @@ set(EXEC_NAME app${PROJECT_NAME})
 set(CXX_SOURCE_FILES
     main.cpp
     PlayerController.hpp PlayerController.cpp
+    AudioSearchModel.hpp AudioSearchModel.cpp
     AudioInfo.hpp AudioInfo.cpp
 )
 set(QML_SOURCE_FILES
@@ -12,13 +13,10 @@ set(QML_SOURCE_FILES
     ImageButton.qml
     AudioInfoBox.qml
     PlaylistPanel.qml
+    SearchPanel.qml
+    SearchField.qml
 )
 set(RESOURCE_FILES
-    assets/audio/air_on_the_g_string.mp3
-    assets/audio/eine_kleine_nachtmusik.mp3
-    assets/audio/symphony_no_5.mp3
-    assets/audio/reprezentuje_biede.mp3
-
     assets/icons/app_icon.ico
     assets/icons/next_icon.png
     assets/icons/pause_icon.png
@@ -27,12 +25,8 @@ set(RESOURCE_FILES
     assets/icons/menu_icon.png
     assets/icons/add_icon.png
     assets/icons/trash_icon.png
-
-    assets/images/song_1.jpg
-    assets/images/song_2.jpg
-    assets/images/song_3.jpg
-
-    assets/videos/video_1.avi
+    assets/icons/search_icon.png
+    assets/icons/close_icon.png
 )
 
 qt_add_executable(${EXEC_NAME})

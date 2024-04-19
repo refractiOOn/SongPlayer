@@ -11,6 +11,8 @@ Rectangle {
 
 	color: '#333333'
 
+    signal searchRequested()
+
 	Text {
 		id: _playlistText
 
@@ -117,7 +119,7 @@ Rectangle {
                 width: 30
                 height: 30
 
-                source: 'qrc:/Assets/Icons/trash_icon.png'
+                source: 'qrc:/assets/icons/trash_icon.png'
 
                 onClicked: {
                     PlayerController.removeAudio(_delegate.index)
@@ -138,13 +140,11 @@ Rectangle {
 		width: 32
 		height: 32
 
-        source: 'qrc:/Assets/Icons/add_icon.png'
+        source: 'qrc:/assets/icons/add_icon.png'
 
 		onClicked: {
-            PlayerController.addAudio('Reprezentuje biede',
-                                      'Rychu Peja',
-                                      'qrc:/Assets/Audio/reprezentuje_biede.mp3',
-                                      'qrc:/Assets/Images/song_3.jpg')
+            _root.searchRequested()
+            _root.hidden = true
 		}
 	}
 

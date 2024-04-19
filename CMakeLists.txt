@@ -8,4 +8,4 @@ find_package(Qt6 REQUIRED COMPONENTS Core Quick Multimedia)
 
 qt_standard_project_setup(REQUIRES 6.7)
 
-add_subdirectory(SourceFiles)
+add_subdirectory(src)

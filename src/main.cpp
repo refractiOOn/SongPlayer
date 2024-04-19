@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QIcon>
 #include "PlayerController.hpp"
+#include "AudioSearchModel.hpp"
 
 int main(int argc, char **argv)
 {
@@ -14,6 +15,9 @@ int main(int argc, char **argv)
 
     PlayerController *playerController = new PlayerController(&app);
     qmlRegisterSingletonInstance("com.refraction.PlayerController", 1, 0, "PlayerController", playerController);
+
+    AudioSearchModel *searchModel = new AudioSearchModel(&app);
+    qmlRegisterSingletonInstance("com.refraction.AudioSearchModel", 1, 0, "AudioSearchModel", searchModel);
 
     engine.loadFromModule("SongPlayer", "Main");
 	return QGuiApplication::exec();

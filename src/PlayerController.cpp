@@ -7,6 +7,7 @@
 PlayerController::PlayerController(QObject *parent) :
     QAbstractListModel(parent),
     m_playing(false),
+    m_currentSong(nullptr),
     m_mediaPlayer(new QMediaPlayer(this))
 {
     m_roleNames.emplace(Role::TitleRole, "title");
@@ -19,20 +20,6 @@ PlayerController::PlayerController(QObject *parent) :
     {
         m_mediaPlayer->setAudioOutput(new QAudioOutput(m_mediaPlayer));
     }
-
-    addAudio("Eine Kleine Nachtmusik",
-             "Wolfgang Amadeus Mozart",
-             QUrl("qrc:/Assets/Audio/eine_kleine_nachtmusik.mp3"),
-             QUrl("qrc:/Assets/Images/song_1.jpg"));
-    addAudio("Symphony No. 5",
-             "Ludwig Van Beethoven",
-             QUrl("qrc:/Assets/Audio/symphony_no_5.mp3"),
-             QUrl("qrc:/Assets/Images/song_2.jpg"));
-    addAudio("Air on the G String",
-             "Johann Sebastian Bach",
-             QUrl("qrc:/Assets/Audio/air_on_the_g_string.mp3"),
-             QUrl("qrc:/Assets/Images/song_3.jpg"),
-             QUrl("qrc:/Assets/Videos/video_1.avi"));
 }
 
 bool PlayerController::playing() const { return m_playing; }
@@ -58,6 +45,8 @@ void PlayerController::setCurrentSong(AudioInfo *val)
 
 void PlayerController::switchToNext()
 {
+    if (!m_audioList.size()) return;
+
     const int index = m_audioList.indexOf(m_currentSong);
     if (index + 1 >= m_audioList.size()) setCurrentSong(m_audioList.first());
     else setCurrentSong(m_audioList[index + 1]);
@@ -65,8 +54,9 @@ void PlayerController::switchToNext()
 
 void PlayerController::switchToPrevious()
 {
-    const int index = m_audioList.indexOf(m_currentSong);
+    if (!m_audioList.size()) return;
 
+    const int index = m_audioList.indexOf(m_currentSong);
     if (index - 1 < 0) setCurrentSong(m_audioList.last());
     else setCurrentSong(m_audioList[index - 1]);
 }
